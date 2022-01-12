@@ -33,7 +33,7 @@
 		WHERE CODE=#code#
 	</delete>
 	
-	<update id="doceDAO.updateCode">
+	<update id="codeDAO.updateCode">
 		UPDATE CODES
 		SET GID=#gid#, NAME=#name#
 		WHERE CODE=#code#

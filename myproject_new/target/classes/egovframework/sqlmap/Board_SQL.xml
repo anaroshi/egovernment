@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BoardSpace">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="boardVO" type="main.service.BoardVO"/>
+
+	<insert id="boardDAO.insertNBoard">
+		INSERT INTO NBOARD (UNQ, TITLE, PASS, NAME, CONTENT, HITS, RDATE)
+		VALUES (NBOARD_SEQ.NEXTVAL, #title#, #pass#, #name#, #content#, 0, SYSDATE)		
+	</insert>
+
+	<!-- list > HashMap -->
+	<select id="boardDAO.selectNBoard" resultClass = "egovMap">
+	SELECT RN, UNQ, TITLE, NAME, HITS, RDATE
+	FROM (
+		SELECT ROWNUM RN, UNQ, TITLE, NAME, HITS, RDATE
+		FROM (
+			SELECT UNQ, TITLE, NAME, HITS, TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
+			FROM NBOARD
+			ORDER BY UNQ DESC
+		))
+	WHERE RN BETWEEN 1 AND 5		
+	</select>	
+	
+	<select id="boardDAO.selectNBoardCount" resultClass = "java.lang.Integer">
+		SELECT COUNT(*) total 
+		FROM NBOARD
+	</select>
+	
+	
+	
+	<select id="boardDAO.selectBoard" resultClass="BoardVO">
+		SELECT CODE, GID, NAME
+		FROM CODES
+		WHERE CODE=#code#
+	</select> 
+	
+	<delete id="boardDAO.deleteBoard">
+		DELETE FROM CODES
+		WHERE CODE=#code#
+	</delete>
+	
+	<update id="doceDAO.updateBoard">
+		UPDATE CODES
+		SET GID=#gid#, NAME=#name#
+		WHERE CODE=#code#
+	</update>
+</sqlMap>
