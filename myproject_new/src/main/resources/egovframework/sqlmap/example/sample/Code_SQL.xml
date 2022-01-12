@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CodeSpace">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="codeVO" type="egovframework.example.sample.service.CodeVO"/>
+
+	<insert id="codeDAO.insertCode">
+		INSERT INTO CODES (CODE, GID, NAME)
+		VALUES (CODES_SEQ.NEXTVAL, #gid#, #name#)		
+	</insert>
+
+	<select id="codeDAO.selectCodeList" resultClass = "egovMap">
+		SELECT CODE, decode(GID,1,'JOB',2,'HOBBY') GID, NAME
+		FROM CODES
+		ORDER BY GID ASC
+	</select>
+	
+	<select id="codeDAO.selectCodeCount" resultClass = "java.lang.Integer">
+		SELECT COUNT(*) count 
+		FROM CODES
+	</select>
+	
+	<select id="codeDAO.selectCode" resultClass="CodeVO">
+		SELECT CODE, GID, NAME
+		FROM CODES
+		WHERE CODE=#code#
+	</select> 
+	
+	<delete id="codeDAO.deleteCode">
+		DELETE FROM CODES
+		WHERE CODE=#code#
+	</delete>
+	
+	<update id="doceDAO.updateCode">
+		UPDATE CODES
+		SET GID=#gid#, NAME=#name#
+		WHERE CODE=#code#
+	</update>
+</sqlMap>
