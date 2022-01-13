@@ -5,6 +5,14 @@
 
 	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
 	<typeAlias  alias="boardVO" type="main.service.BoardVO"/>
+	
+	<sql id="search">
+	<isNotNull property="searchGubun">
+		<isNotNull property="searchText">
+		WHERE $searchGubun$ LIKE '%$searchText$%'
+		</isNotNull>
+	</isNotNull>
+	</sql>
 
 	<insert id="boardDAO.insertNBoard">
 		INSERT INTO NBOARD (UNQ, TITLE, PASS, NAME, CONTENT, HITS, RDATE)
@@ -19,32 +27,47 @@
 		FROM (
 			SELECT UNQ, TITLE, NAME, HITS, TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
 			FROM NBOARD
+			<include refid="search" />			
 			ORDER BY UNQ DESC
 		))
-	WHERE RN BETWEEN 1 AND 5		
+	WHERE RN BETWEEN #startIndex# AND #endIndex#
 	</select>	
 	
 	<select id="boardDAO.selectNBoardCount" resultClass = "java.lang.Integer">
 		SELECT COUNT(*) total 
 		FROM NBOARD
+		<include refid="search" />
 	</select>
+		
+	<update id="boardDAO.updateHits">
+		UPDATE 	NBOARD
+		SET 	HITS = HITS+1
+		WHERE 	UNQ=#unq#
+	</update> 
 	
-	
-	
-	<select id="boardDAO.selectBoard" resultClass="BoardVO">
-		SELECT CODE, GID, NAME
-		FROM CODES
-		WHERE CODE=#code#
-	</select> 
-	
-	<delete id="boardDAO.deleteBoard">
-		DELETE FROM CODES
-		WHERE CODE=#code#
+	<select id="boardDAO.selectNBoardDetail" resultClass="BoardVO">
+		SELECT UNQ, TITLE, NAME, CONTENT, TO_CHAR(RDATE,'YYYY-MM-DD') RDATE
+		FROM NBOARD
+		WHERE UNQ=#unq#
+	</select>	
+		
+	<delete id="boardDAO.deleteNBoard">
+		DELETE 	FROM NBOARD
+		WHERE 	UNQ=#unq#
+		AND 	PASS=#pass#
 	</delete>
 	
-	<update id="doceDAO.updateBoard">
-		UPDATE CODES
-		SET GID=#gid#, NAME=#name#
-		WHERE CODE=#code#
+	<update id="boardDAO.updateNBoard">
+		UPDATE 	NBOARD
+		SET 	TITLE=#title#, NAME=#name#, CONTENT=#content# 
+		WHERE 	UNQ=#unq#
+		AND 	PASS=#pass#
 	</update>
+	
+	<select id="BoardVO.selectNBoardPass" resultClass="java.lang.Integer">
+		SELECT 	COUNT(*) CNT
+		FROM 	NBOARD
+		WHERE 	UNQ=#unq#
+		AND 	PASS=#pass#
+	</select>
 </sqlMap>

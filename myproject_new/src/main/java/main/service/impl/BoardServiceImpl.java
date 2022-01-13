@@ -28,8 +28,32 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int selectNBoardCount(BoardVO vo) throws Exception {
-		// TODO Auto-generated method stub
 		return boardDAO.selectNBoardCount(vo);
+	}
+
+	@Override
+	public BoardVO selectNBoardDetail(int unq) throws Exception {
+		return boardDAO.selectNBoardDetail(unq);
+	}
+
+	@Override
+	public int updateNBoard(BoardVO vo) throws Exception {
+		return boardDAO.updateNBoard(vo);
+	}
+
+	@Override
+	public int deleteNBoard(BoardVO vo) throws Exception {
+		return boardDAO.deleteNBoard(vo);
+	}
+
+	@Override
+	public int updateHits(BoardVO vo) throws Exception {		
+		return boardDAO.updateHits(vo);
+	}
+
+	@Override
+	public int selectNBoardPass(BoardVO vo) throws Exception {
+		return boardDAO.selectNBoardPass(vo);
 	}
 
 }

@@ -11,6 +11,16 @@ public class BoardVO {
 	private int hits;
 	private String rdate;
 	
+	// 페이징 처리
+	private int viewPage = 1;
+	private int startIndex = 1;
+	private int endIndex = 1;
+	private int unit = 10; // 화면에 보여지는 글목록 수
+	
+	// 검색기능
+	private String searchGubun;
+	private String searchText;	
+	
 	public int getUnq() {
 		return unq;
 	}
@@ -52,10 +62,48 @@ public class BoardVO {
 	}
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
+	}	
+	public int getViewPage() {
+		return viewPage;
+	}
+	public void setViewPage(int viewPage) {
+		this.viewPage = viewPage;
+	}	
+	public int getStartIndex() {
+		return startIndex;
+	}
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+	public int getEndIndex() {
+		return endIndex;
+	}
+	public void setEndIndex(int endIndex) {
+		this.endIndex = endIndex;
+	}	
+	public int getUnit() {
+		return unit;
+	}
+	public void setUnit(int unit) {
+		this.unit = unit;
+	}	
+	public String getSearchGubun() {
+		return searchGubun;
+	}
+	public void setSearchGubun(String searchGubun) {
+		this.searchGubun = searchGubun;
+	}
+	public String getSearchText() {
+		return searchText;
+	}
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
 	}
 	@Override
 	public String toString() {
 		return "BoardVO [unq=" + unq + ", title=" + title + ", pass=" + pass + ", name=" + name + ", content=" + content
-				+ ", hits=" + hits + ", rdate=" + rdate + "]";
+				+ ", hits=" + hits + ", rdate=" + rdate + ", viewPage=" + viewPage + ", startIndex=" + startIndex
+				+ ", endIndex=" + endIndex + ", unit=" + unit + ", searchGubun=" + searchGubun + ", searchText="
+				+ searchText + "]";
 	}	
 }

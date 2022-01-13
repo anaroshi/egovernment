@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,38 +50,40 @@ th,td {
 		$("#pass").val(pass);
 		
 		let formData = $("#frm").serialize();
-		
+		// alert(formData);
 		//비동기식  전송방식의 기능을 가지고 있는 jquery 함수
 		$.ajax({
+			/* 전송 전 세팅 */
 			type:"POST",
-			url:"boardWriteSave.do",
+			url: "boardModifySave.do",
 			data: formData,
 			dataType:"text", // 리턴 타입
-			success: function(data) {
-				if(data=="ok") {
-					alert("저장완료");
+			/* 전송 후 세팅 */
+			success: function(result) { // controller => "1"/"" 반환
+				if(result=="1") {
+					alert("수정완료");
 					location ="boardList.do";
+				} else if(result=="-1") {
+					alert("비밀번호가 일치하지 않습니다.");					
 				} else {
-					alert("저장실패");
+					alert("수정실패");
 				}
 			},
 			error: function() {
 				alert("오류발생");
 			}			
 		}); 
-		
-		// document.frm.submit(); // 동기전송방식		
-	};
-
+	}
 </script>
 </head>
 <body>
 <form id="frm">
+<input type="hidden" name="unq" value="${vo.unq}" />
 <table>
-    <caption>게시판 등록</caption>
+    <caption>게시판 수정 화면</caption>
     <tr>
         <th width="20%"><label for="title">제목</label></th>
-        <td width="80%"><input type="text" name="title" id="title" class="input1" /></td>
+        <td width="80%"><input type="text" name="title" id="title" class="input1" value="${vo.title}" /></td>
     </tr>
     <tr>
         <th><label for="pass">암호</label></th>
@@ -88,15 +91,20 @@ th,td {
     </tr>
     <tr>
         <th><label for="name">글쓴이</label></th>
-        <td><input type="text" name="name" id="name" /></td>
+        <td><input type="text" name="name" id="name" value="${vo.name}" /></td>
     </tr>
     <tr>
         <th><label for="content">내용</label></th>
-        <td><textarea name="content" id="content" class="textarea"></textarea></td>
+        <td height="100px"><textarea name="content" id="content" class="textarea">${vo.content}</textarea></td>
+    </tr>
+    <tr>
+        <th><label for="rdate">등록일</label></th>
+        <td>${vo.rdate}</td>
     </tr>
     <tr>
         <th colspan="2">
-            <button type="submit" onclick="fn_submit(); return false;">저장</button>
+            <button type="submit" onclick="fn_submit(); return false;">수정</button>
+            <button type="button" onclick="location='boardList.do';">목록</button>
             <button type="reset">취소</button>
         </th>        
     </tr>
