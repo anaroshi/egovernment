@@ -105,7 +105,7 @@ $(function() {
             dataType:"text",
             data : formData,
             success: function(result, statustext, xhr) {
-            	console.log("result:"+result+" -> xhr: "+xhr)
+            	console.log("result:"+result+" -> xhr: "+xhr);
 				if(result=="ok") {
 					alert("저장완료");
 					location ="loginWrite.do";
@@ -176,7 +176,7 @@ $(function() {
 		<th width="15%"><a href="/code/codeList.do">코드</a></th>
 		<th width="15%"><a href="/dept/deptList.do">부서</a></th>
 		<th width="20%"><a href="/member/memberWrite.do">회원가입</a></th>
-		<th width="15%"><a href="">로그인</a></th>
+		<th width="15%"><a href="/member/loginWrite.do">로그인</a></th>
 	</tr>
 </table>
 
@@ -225,7 +225,7 @@ $(function() {
 	</tr>
 </table>
 <div class="div_button">
-	<button type="submit" id="btn_submit">저장</button>
+	<button type="button" id="btn_submit">저장</button>
 	<button type="reset">취소</button>
 </div>
 </form>

@@ -12,5 +12,8 @@ public interface MemberService {
 	
 	// 우편번호(주소) 검색
 	public List<?> selectPostList(String dong) throws Exception;
+	
+	// 로그인 처리
+	public int selectMemberCount(MemberVO vo) throws Exception;
 
 }

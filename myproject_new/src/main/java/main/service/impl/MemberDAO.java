@@ -27,4 +27,8 @@ public class MemberDAO  extends EgovAbstractDAO {
 	public List<?> seletPostList(String dong) {
 		return (List<?>) list("memberDAO.selectPostList", dong);
 	}
+
+	public int selectMemberCount(MemberVO vo) {
+		return (int) select("memberDAO.selectMemberCount", vo);
+	}
 }

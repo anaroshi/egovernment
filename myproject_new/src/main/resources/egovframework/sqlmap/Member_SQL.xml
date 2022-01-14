@@ -50,4 +50,10 @@
 		OR 		A5 LIKE '%' || #dong# || '%'		
 	</select>
 
+	<select id="memberDAO.selectMemberCount" resultClass="java.lang.Integer">
+		SELECT  COUNT(*) CNT
+		FROM 	MEMBER
+		WHERE 	USERID 	= #userid#
+		AND		PASS	= #pass#
+	</select>
 </sqlMap>

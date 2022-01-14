@@ -84,7 +84,7 @@ public class MemberController {
 	/*  
 	 * 우편번호 주소 찾기 화면
 	 */
-	@GetMapping("post1.do")
+	@GetMapping("/post1.do")
 	public String post1() {
 		LOGGER.info("-------------------------------post1 ");
 		return MODULE+"/post1";
@@ -93,11 +93,39 @@ public class MemberController {
 	/*  
 	 * 우편번호 주소 검색
 	 */	
-	@PostMapping("post2.do")
+	@PostMapping("/post2.do")
 	public String post2(String dong, Model model) throws Exception {
 		LOGGER.info("-------------------------------post2 ");
 		List<?> list = memberService.selectPostList(dong);
 		model.addAttribute("resultList", list);
 		return MODULE+"/post2";
 	}
+	
+	/*  
+	 * 로그인
+	 */
+	@GetMapping("/loginWrite.do")
+	public String loginWrite() {
+		LOGGER.info("-------------------------------loginWrite ");
+		return MODULE+"/loginWrite";
+	}
+	
+	/*  
+	 * 로그인 처리
+	 */
+	@PostMapping("/loginWriteSub.do")
+	@ResponseBody
+	public String loginProcessing(MemberVO vo) throws Exception{
+		String msg = "fail";
+		LOGGER.info("-------------------------------loginWriteSub ");
+		int result = memberService.selectMemberCount(vo);
+		LOGGER.info("-------------------------------loginWriteSub result: "+result);
+		if(result==1) {
+			msg="ok";
+			LOGGER.info("-------------------------------login 성공 ");
+		}
+		LOGGER.info("-------------------------------login msg "+msg);
+		return msg;
+	}	
+	
 }
