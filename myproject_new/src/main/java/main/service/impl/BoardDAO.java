@@ -39,6 +39,6 @@ public class BoardDAO extends EgovAbstractDAO {
 	}
 
 	public int selectNBoardPass(BoardVO vo) {		
-		return (int) select("BoardVO.selectNBoardPass",vo);
+		return (int) select("boardDAO.selectNBoardPass",vo);
 	}
 }

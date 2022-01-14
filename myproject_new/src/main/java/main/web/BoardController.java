@@ -103,7 +103,7 @@ public class BoardController {
 		LOGGER.info("-------------------------------boardDetail int cnt:"+ cnt);
 		BoardVO result = boardService.selectNBoardDetail(vo.getUnq());
 		
-		// 게시판 본문 내용에 줄바꿈 "\n" ---> "<br>"으로 바꿈
+		// 게시판 본문 내용에 줄바꿈 "\n" ---> "<br>"으로 바꿈----------------------------------------------------------br----------
 		String content = result.getContent();
 		result.setContent(content.replace("\n", "<br>"));
 		

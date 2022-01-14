@@ -5,5 +5,49 @@
 
 	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
 	<typeAlias  alias="memberVO" type="main.service.MemberVO"/>
+	
 
-</sqlMap>	
+	<insert id="memberDAO.insertMember">
+		INSERT INTO MEMBER (
+			USERID,
+			PASS,
+			NAME,
+ 			BIRTH,			
+			PHONE,
+			GENDER,
+			ZIPCODE,
+			ADDRESS
+		) 
+		VALUES (
+			#userid#,
+			#pass#,
+			#name#,
+ 			TO_DATE(#birth#,'YYYYMMDD'),			
+			#phone#,
+			#gender#,
+			#zipcode#,
+			#address#
+		)		
+	</insert>
+	
+	<select id="memberDAO.selectMemberIdCheck" resultClass="java.lang.Integer">
+		SELECT 	COUNT(*) cnt
+		FROM 	MEMBER
+		WHERE 	USERID = #userid#
+	</select>
+	
+	<select id="memberDAO.selectPostList" resultClass="egovMap">
+		SELECT 	'[' || A1 || ']' ||
+				' ' || A2 ||
+				' ' || A3 ||
+				' ' || A4 ||
+				' ' || A5 ||
+				' ' || A6 ||
+				' ' || A7 ||
+				' ' || A8 AS addr				
+		FROM 	POST
+		WHERE 	A4 LIKE '%' || #dong# || '%'
+		OR 		A5 LIKE '%' || #dong# || '%'		
+	</select>
+
+</sqlMap>

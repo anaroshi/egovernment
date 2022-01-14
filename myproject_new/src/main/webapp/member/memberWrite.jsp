@@ -7,7 +7,6 @@
 <title>회원 등록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <style type="text/css">
@@ -62,6 +61,7 @@ $(function() {
 	// 저장 button
 	$("#btn_submit").click(function() {
 		let userid 	= $("#userid").val();
+		let idis 	= $("#idis").val();
 		let pass 	= $("#pass").val();  
 		let name 	= $("#name").val();
 		userid 		= $.trim(userid);
@@ -74,6 +74,12 @@ $(function() {
 			return false;
 		}
 		$("#userid").val(userid);
+		
+		if(idis != "checked") {
+			alert("아이디 중복체크를 해주세요.");
+			$("#userid").focus();
+			return false;
+		}
 		
 		if(pass=="" || pass.length <3) {
 			alert("암호를 입력해주세요.");
@@ -90,25 +96,73 @@ $(function() {
 		$("#name").val(name);
 		
 		let formData = $("#frm").serialize();
-		alert(formData);
-		
+		// alert(formData);
+
 		$.ajax({
-			type: "POST",
-			url: "memberWriteSave.do",
-			data: formData,
-			dataType: text, // 리턴 타입
-			success: function(result) {
-				if(result=="1") {
-					alert("저장 완료");
-					location = "loginWrite.do";
+            type : "POST",
+            url  : "memberWriteSave.do",
+            async: false,
+            dataType:"text",
+            data : formData,
+            success: function(result, statustext, xhr) {
+            	console.log("result:"+result+" -> xhr: "+xhr)
+				if(result=="ok") {
+					alert("저장완료");
+					location ="loginWrite.do";
 				} else {
-					alert("저장 실패");
+					alert("저장실패");
 				}
 			},
 			error: function() {
-				alert("오류 발생");
-			};
+				alert("오류발생");
+			}
+        });			
+	});
+	
+	// userid 중복체크
+	$("#btn_userid").click(function(){
+		
+		let userid 	= $("#userid").val();		
+		if(userid=="" || userid.length <3) {
+			alert("아이디를 입력해주세요.");
+			$("#userid").focus();
+			return false;
+		}
+		$("#userid").val(userid);		
+		
+		$.ajax ({
+			type : "POST",
+            url  : "idcheck.do",
+            async: false,
+            dataType:"text",
+            data : "userid="+userid, // json 타입이으로 보냄
+            success: function(result, statustext, xhr) {
+            	console.log("result:"+result+" -> xhr: "+xhr)
+				if(result=="fail") {
+					alert("이미 사용중인 아이디입니다.");
+					$("#idis").val("");
+					$("#userid").focus();
+				} else {
+					alert("사용 가능한 아이디입니다.");
+					$("#idis").val("checked");
+					$("#pass").focus();
+				}
+			},
+			error: function() {
+				alert("오류발생");
+			}
 		});
+		
+	});
+	
+	// userid 우편번호 찾기 -- 팝업창 이용 --
+	$("#btn_zipcode").click(function(){
+		//alert("우편번호 찾기");
+		
+		var w = 600;
+		var h = 100;
+		var url = "post1.do";
+		window.open(url,'zipcode','width='+w+', height='+h);		
 	});
 	
 });
@@ -126,7 +180,8 @@ $(function() {
 	</tr>
 </table>
 
-<form id="frm">
+<form id="frm" name="frm">
+<input type="hidden" name="idis" id="idis" value="">
 <table>
 	<caption>회원가입 폼</caption>
 	<tr>
@@ -147,8 +202,8 @@ $(function() {
 	<tr>
 		<th><label for="gender">성별</label></th>
 		<td>
-			<input type="radio" name="gender" id="gender" value="M">남
-			<input type="radio" name="gender" id="gender" value="W">여
+			<input type="radio" name="gender" value="M">남
+			<input type="radio" name="gender" value="F">여
 		</td>
 	</tr>
 	<tr>
