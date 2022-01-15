@@ -12,21 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 등록</title>
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 <style>
-body {
-    font-size: 9pt;
-}
-button {
-    font-size: 9pt;
-}
-table {
-    width: 600px;
-    border-collapse: collapse;
-}
-th,td {
-    border: 1px solid #cccccc;
-    padding: 3px;
-}
 .input1 {
 	width: 98%;
 }
@@ -37,6 +24,7 @@ th,td {
 </style>
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <form id="frm">
 <table>
     <caption>게시판 상세</caption>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,31 +24,22 @@ $(function() {
 		monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
 	});
 	
-	// 저장 button
+	// 수정 button
 	$("#btn_submit").click(function() {
-		let userid 	= $("#userid").val();
-		let idis 	= $("#idis").val();
+		let userid  = $("#userid").val();
 		let pass 	= $("#pass").val();  
 		let name 	= $("#name").val();
-		userid 		= $.trim(userid);
+		let checkPass = $("#checkPass").val();
 		pass 		= $.trim(pass);
-		name 		= $.trim(name);
-		
-		if(userid=="" || userid.length <3) {
-			alert("아이디를 입력해주세요.");
-			$("#userid").focus();
-			return false;
-		}
-		$("#userid").val(userid);
-		
-		if(idis != "checked") {
-			alert("아이디 중복체크를 해주세요.");
-			$("#userid").focus();
-			return false;
-		}
+		name 		= $.trim(name);		
 		
 		if(pass=="" || pass.length <3) {
 			alert("암호를 입력해주세요.");
+			$("#pass").focus();
+			return false;
+		}
+		if(pass!=checkPass) {
+			alert("암호가 일치하지 않습니다. 확인해주세요.");
 			$("#pass").focus();
 			return false;
 		}
@@ -62,18 +54,18 @@ $(function() {
 		
 		let formData = $("#frm").serialize();
 		// alert(formData);
-
+		alert(userid);
 		$.ajax({
             type : "POST",
-            url  : "memberWriteSave.do",
+            url  : "memberModifySave.do",
             async: false,
             dataType:"text",
             data : formData,
             success: function(result, statustext, xhr) {
             	console.log("result:"+result+" -> xhr: "+xhr);
-				if(result=="ok") {
-					alert("저장완료");
-					location ="loginWrite.do";
+				if(result=="1") {
+					alert("저장완료");					
+					location = "memberDetail.do?userid="+userid;
 				} else {
 					alert("저장실패");
 				}
@@ -82,43 +74,7 @@ $(function() {
 				alert("오류발생");
 			}
         });			
-	});
-	
-	// userid 중복체크
-	$("#btn_userid").click(function(){
-		
-		let userid 	= $("#userid").val();		
-		if(userid=="" || userid.length <3) {
-			alert("아이디를 입력해주세요.");
-			$("#userid").focus();
-			return false;
-		}
-		$("#userid").val(userid);		
-		
-		$.ajax ({
-			type : "POST",
-            url  : "idcheck.do",
-            async: false,
-            dataType:"text",
-            data : "userid="+userid, // json 타입이으로 보냄
-            success: function(result, statustext, xhr) {
-            	console.log("result:"+result+" -> xhr: "+xhr)
-				if(result=="fail") {
-					alert("이미 사용중인 아이디입니다.");
-					$("#idis").val("");
-					$("#userid").focus();
-				} else {
-					alert("사용 가능한 아이디입니다.");
-					$("#idis").val("checked");
-					$("#pass").focus();
-				}
-			},
-			error: function() {
-				alert("오류발생");
-			}
-		});
-		
-	});
+	});	
 	
 	// userid 우편번호 찾기 -- 팝업창 이용 --
 	$("#btn_zipcode").click(function(){
@@ -136,51 +92,49 @@ $(function() {
 <body>
 <%@ include file="../include/topMenu.jsp" %>
 <form id="frm" name="frm">
-<input type="hidden" name="idis" id="idis" value="">
+<input type="hidden" name="checkPass" id="checkPass" value="${vo.pass}">
+<input type="hidden" name="userid" id="userid" value="${vo.userid}">
 <table>
-	<caption>회원가입 폼</caption>
+	<caption>회원정보 수정</caption>
 	<tr>
 		<th><label for="userid">아이디</label></th>
-		<td>
-			<input type="text" name="userid" id="userid" placeholder="아이디 입력" required="required">
-			<button type="button" id="btn_userid">중복체크</button>
-		</td>		
+		<td>${vo.userid}</td>		
 	</tr>
 	<tr>
 		<th><label for="pass">암호</label></th>
-		<td><input type="password" name="pass" id="pass" required="required"></td>
+		<td><input type="password" name="pass" id="pass" required="required"> 확인용</td>
 	</tr>
 	<tr>
 		<th><label for="name">이름</label></th>
-		<td><input type="text" name="name" id="name" required="required"></td>
+		<td><input type="text" name="name" id="name" required="required" value="${vo.name}"></td>
 	</tr>
 	<tr>
 		<th><label for="gender">성별</label></th>
 		<td>
-			<input type="radio" name="gender" value="M">남
-			<input type="radio" name="gender" value="F">여
+			<input type="radio" name="gender" value="M" <c:if test="${vo.gender == 'M'}" >checked</c:if> >남
+			<input type="radio" name="gender" value="F" <c:if test="${vo.gender == 'F'}" >checked</c:if> >여
 		</td>
 	</tr>
 	<tr>
 		<th><label for="birth">생년월일</label></th>
-		<td><input type="text" name="birth" id="birth"></td>
+		<td><input type="text" name="birth" id="birth" value="${vo.birth}"></td>
 	</tr>
 	<tr>
 		<th><label for="phone">연락처</label></th>
-		<td><input type="text" name="phone" id="phone"> (예:010-1234-1234)</td>
+		<td><input type="text" name="phone" id="phone" value="${vo.phone}"> (예:010-1234-1234)</td>
 	</tr>
 	<tr>
 		<th><label for="address">주소</label></th>
 		<td>
-			<input type="text" name="zipcode" id="zipcode">
+			<input type="text" name="zipcode" id="zipcode" value="${vo.zipcode}">
 			<button type="button" id="btn_zipcode">우편번호 찾기</button>		
 			<br>
-			<input type="text" name="address" id="address">
+			<input type="text" name="address" id="address" value="${vo.address}">
 		</td>
 	</tr>
 </table>
 <div class="div_button">
-	<button type="button" id="btn_submit">저장</button>
+	<button type="button" id="btn_submit">수정</button>
 	<button type="reset">취소</button>
 </div>
 </form>

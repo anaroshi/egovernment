@@ -5,27 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>부서상세</title>
-<style type="text/css">
-table {
-	width: 400px;
-	border-collapse: collapse; /* cell 간격 없앰 */
-}
-th, td {
-	border: 1px solid #cccccc;
-	padding: 5px;
-}
-a {
-	text-decoration: none;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <form action="deptWriteSave.do" method="post" name="frm">
 <table>
 	<caption>부서상세정보</caption>
 	<tr>
-		<th>부서번호</th>
-		<td>${vo.deptno}</td>
+		<th width="30%">부서번호</th>
+		<td width="70%">${vo.deptno}</td>
 	</tr>
 	<tr>
 		<th>부서이름</th>

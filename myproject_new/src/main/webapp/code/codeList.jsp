@@ -7,22 +7,10 @@
 <meta charset="UTF-8">
 <title>코드관리 리스트</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 <style type="text/css">
-table {
-	width: 600px;
-	border-collapse: collapse; /* cell 간격 없앰 */
-}
-th, td {
-	border: 1px solid #cccccc;
-	padding: 5px;
-}
-a {
-	text-decoration: none;
-}
 .rowValue:hover {
 	background-color: #dddd;	
 }
@@ -36,6 +24,7 @@ function fn_delete(code) {
 </script>
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <div style="width:100%; text-align:left;">Total : ${count} 개</div>
 <table>
 <caption>코드목록</caption>

@@ -10,19 +10,8 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 <style type="text/css">
-table {
-	width: 400px;
-	border-collapse: collapse; /* cell 간격 없앰 */
-}
-th, td {
-	border: 1px solid #cccccc;
-	padding: 5px;
-}
-a {
-	text-decoration: none;
-}
 .rowValue:hover {
 	background-color: #dddd;	
 }
@@ -36,6 +25,7 @@ $(function() {
 </script>
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <table>
 <caption>부서관리</caption>
 <tr>

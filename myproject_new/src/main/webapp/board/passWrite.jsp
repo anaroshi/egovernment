@@ -6,21 +6,8 @@
 <meta charset="UTF-8">
 <title>암호 입력</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 <style>
-body {
-    font-size: 9pt;
-}
-button {
-    font-size: 9pt;
-}
-table {
-    width: 300px;
-    border-collapse: collapse;
-}
-th,td {
-    border: 0px solid #cccccc;
-    padding: 3px;
-}
 input {
 	width: 97%;
 }
@@ -61,6 +48,7 @@ $(function(){
 </script>
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <table>
 	<tr>
 		<th width="20%"><label for="pass" >암호 입력</label></th>

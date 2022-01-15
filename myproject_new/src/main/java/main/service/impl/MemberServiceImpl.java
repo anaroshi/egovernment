@@ -40,5 +40,20 @@ public class MemberServiceImpl implements MemberService {
 	public int selectMemberCount(MemberVO vo) throws Exception {
 		return memberDAO.selectMemberCount(vo);
 	}
+
+	@Override
+	public MemberVO selectMemberDetail(String userid) throws Exception {
+		return memberDAO.selectMemberDetail(userid);
+	}
+
+	@Override
+	public int updateMember(MemberVO vo) throws Exception {
+		return memberDAO.updateMember(vo);
+	}
+
+	@Override
+	public int updatePass(MemberVO vo) throws Exception {
+		return memberDAO.updatePass(vo);
+	}
 	
 }

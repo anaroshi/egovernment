@@ -7,20 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>게시판 목록</title>
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 <style>
-body {
-    font-size: 9pt;
-}
-button {
-    font-size: 9pt;
-}
-table {
-    width: 600px;
-    border-collapse: collapse;
-}
-th,td {
-    border: 1px solid #cccccc;
-    padding: 3px;
+.rowValue:hover {
+	background-color: #dddd;	
 }
 .div1 {
 	width: 600px;
@@ -37,15 +27,13 @@ th,td {
 	text-align: right;
 	font-size: 9pt;
 }
-a {
-	text-decoration: none;
-}
 </style>
 <script type="text/javascript">
 
 </script>
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <!-- 번호, 제목, 글쓴이, 등록일, 조회수 -->
 <div class="div1">일반 게시판 목록</div>
 <div class="div2">total: ${totalRow}</div>
@@ -76,7 +64,7 @@ a {
 
 <table>
     <tr>
-        <th width="10%">번호</th>
+        <th >번호</th>
         <th width="40%">제목</th>
         <th width="20%">글쓴이</th>
         <th width="20%">등록일</th>
@@ -84,7 +72,7 @@ a {
     </tr>
     <c:set var="cnt" value="${rowNunmer}"/>
 	<c:forEach items="${resultList}" var="list" varStatus="status">
-	    <tr align="center">
+	    <tr align="center" class="rowValue">
 		<td>${cnt}</td>
 		<td align="left"><a href="boardDetail.do?unq=${list.unq}&cnt=1">${list.title}</a></td>
 		<td>${list.name}</td>

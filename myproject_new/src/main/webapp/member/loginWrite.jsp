@@ -93,6 +93,7 @@ $(function(){
 </head>
 
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <form id="frm" name="frm">
 <table>
 	<caption>로그인</caption>

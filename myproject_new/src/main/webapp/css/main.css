@@ -1,0 +1,36 @@
+@charset "UTF-8";
+body {
+    font-size: 9pt;
+    color: #333333;
+    font-family: 맑은 고딕;
+}
+button {
+    font-size: 9pt;
+}
+table {
+	width: 600px;
+	border-collapse: collapse; /* cell 간격 없앰 */
+}
+caption {
+	font-size: 15pt;
+	font-weight: bold;
+	margin-top: 20px;	
+	padding-bottom: 5px;
+}
+th, td {
+	border: 1px solid #cccccc;
+	padding: 5px;
+	line-height: 2.0;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	cursor: pointer;
+	color: #cccccc;
+}
+.div_button {
+	width: 600px;
+	text-align: center;
+	margin-top: 5px;
+}

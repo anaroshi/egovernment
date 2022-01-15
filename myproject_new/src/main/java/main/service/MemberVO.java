@@ -11,6 +11,7 @@ public class MemberVO {
 	private String zipcode;
 	private String address;
 	private String reg;
+	private String newPass;
 	
 	public String getUserid() {
 		return userid;
@@ -66,9 +67,16 @@ public class MemberVO {
 	public void setReg(String reg) {
 		this.reg = reg;
 	}
+	public String getNewPass() {
+		return newPass;
+	}
+	public void setNewPass(String newPass) {
+		this.newPass = newPass;
+	}
 	@Override
 	public String toString() {
 		return "MemberVO [userid=" + userid + ", pass=" + pass + ", name=" + name + ", birth=" + birth + ", phone="
-				+ phone + ", gender=" + gender + ", zipcode=" + zipcode + ", address=" + address + ", reg=" + reg + "]";
+				+ phone + ", gender=" + gender + ", zipcode=" + zipcode + ", address=" + address + ", reg=" + reg
+				+ ", newPass=" + newPass + "]";
 	}	
 }

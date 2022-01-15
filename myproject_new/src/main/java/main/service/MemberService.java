@@ -16,4 +16,11 @@ public interface MemberService {
 	// 로그인 처리
 	public int selectMemberCount(MemberVO vo) throws Exception;
 
+	// 회원정보 상세
+	public MemberVO selectMemberDetail(String userid) throws Exception;
+	
+	// 회원정보 저장
+	public int updateMember(MemberVO vo) throws Exception;
+
+	public int updatePass(MemberVO vo) throws Exception;
 }

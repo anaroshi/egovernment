@@ -6,16 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>코드 등록</title>
-<style type="text/css">
-table {
-	width: 400px;
-	border-collapse: collapse; 
-}
-th,td {
-	border: 1px solid #ccccc;
-	padding: 5px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 <script type="text/javascript">
 	function fn_submit() {
 		if (document.frm.name.value=="") {
@@ -28,6 +19,7 @@ th,td {
 </script>
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <form method="post" name="frm" action="codeWriteSave.do">
 <table>
 	<caption>코드 등록</caption>

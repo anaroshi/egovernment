@@ -5,18 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>부서관리</title>
-<style type="text/css">
-table {
-	width: 400px;
-	border-collapse: collapse; /* cell 간격 없앰 */
-}
-th, td {
-	border: 1px solid #cccccc;
-	padding: 5px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
 </head>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 <form action="deptWriteSave.do" method="post" name="frm">
 <table>
 	<caption>부서등록</caption>

@@ -56,4 +56,37 @@
 		WHERE 	USERID 	= #userid#
 		AND		PASS	= #pass#
 	</select>
+	
+	<select id="memberDAO.selectMemberDetail" resultClass="memberVO">
+		SELECT USERID,
+				PASS,
+				NAME,
+	 			TO_CHAR(BIRTH,'YYYY-MM-DD') BIRTH,			
+				PHONE,
+				GENDER,
+				ZIPCODE,
+				ADDRESS,
+				REG 
+		FROM 	MEMBER
+		WHERE 	USERID 	= #userid#		
+	</select>
+	
+	<update id="memberDAO.updateMember">
+		UPDATE 	MEMBER
+		SET		NAME 	= #name#,
+				BIRTH 	= TO_DATE(#birth#,'YYYYMMDD'),			
+				PHONE 	= #phone#,
+				GENDER 	= #gender#,
+				ZIPCODE = #zipcode#,
+				ADDRESS = #address#
+		WHERE 	USERID 	= #userid#
+		AND		PASS	= #pass#
+	</update>
+	
+	<update id ="memberDAO.updatePass">
+		UPDATE 	MEMBER
+		SET		PASS	= #newPass#
+		WHERE 	USERID 	= #userid#
+		AND		PASS 	= #pass#
+	</update>
 </sqlMap>
